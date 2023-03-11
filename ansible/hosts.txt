@@ -1,0 +1,6 @@
+[standing_servers]
+server1 ansible_host=192.168.56.104 ansible_user=server ansible_ssh_privat_key_file=ssh_key
+
+
+[standing_servers:vars]
+ssh_key=/home/ubuntu/.ssh/id_rsa
