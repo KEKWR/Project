@@ -24,7 +24,7 @@ def makeAnsible():
     except:
         pass
     
-    os.system('ansible-playbook /home/kali/Project/ansible/playbook.yml -i /home/kali/Project/ansible/hosts.txt -kK')
+    os.system('ansible-playbook /home/kali/Project/ansible/playbook.yml -i /home/kali/Project/ansible/hosts.txt --vault-password-file=/home/kali/Project/ansible/vault.txt')
 
 @app.get('/Grype')
 def makeGrype():
@@ -34,5 +34,5 @@ def makeGrype():
         os.system('cd /home/kali/Project/grype && mkdir server1')
     except:
         pass
-    
+
     os.system(f'grype sbom/server1/sbom.json -o json  --add-cpes-if-none >> grype/server1/{now.day}-{now.month}-{now.year}grype.json')
