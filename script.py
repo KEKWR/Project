@@ -9,6 +9,7 @@ class CheckV_and_Install:
         self.lastV = "0"
         self.i = 0
         self.n= n
+        self.m =''
         
     def checkLastVersion(self):
         response= requests.get(self.url)
@@ -20,7 +21,7 @@ class CheckV_and_Install:
     def checkLastVersionOnPC(self):
         self.f = open('Version.txt', 'r')
         self.l = [line.strip() for line in self.f]
-        if self.lastV == self.l[self.n]: return 'the latest version is already installed'
+        if self.lastV == self.l[self.n]: self.m =  'the latest version is already installed'
         else:
             self.downloadLastVersion()
         
@@ -42,15 +43,16 @@ class CheckV_and_Install:
             for i in self.l:    
                 f.write(i+'\n')
 
-        return f'the latest version of {self.name} {self.lastV} is installed'    
+        self.m = f'the latest version of {self.name} {self.lastV} is installed'    
 
 
     def run(self):
         self.checkLastVersion()
         self.checkLastVersionOnPC()
+        
 
-if __name__ == "__main__" :
-    chSyft = CheckV_and_Install('https://github.com/anchore/syft','syft', 0)
-    chSyft.run()
-    chGrype = CheckV_and_Install('https://github.com/anchore/grype','grype', 1)
-    chGrype.run()
+# if __name__ == "__main__" :
+#     chSyft = CheckV_and_Install('https://github.com/anchore/syft','syft', 0)
+#     chSyft.run()
+#     chGrype = CheckV_and_Install('https://github.com/anchore/grype','grype', 1)
+#     chGrype.run()
