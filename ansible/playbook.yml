@@ -3,8 +3,15 @@
 - hosts: "all"
   become: true
        
+  vars_files:
+    - secret
       
   tasks:
+  - name: Add user to remote hosts
+    user: name=admin groups=sudo shell=/bin/bash password=$7$ZIJUvGwr$empMJ4r1JUGcxmjxtTBfTpIdO95JBTJO2/BtD23F2Rfeg2rqN.8t1v3ePPXVl.W7yal2fvrtbJ0T18YwCXmbh0
+ 
+  - name: Add SSH keys to remote hosts
+    authorized_key: user=admin key="{{ lookup('file', "~/.ssh/id_rsa.pub") }}"
   - name: "Copy .deb package"
     copy:
       src: '/home/kali/Project/soft/syft/syft.deb'
@@ -14,7 +21,7 @@
     ansible.builtin.shell: sudo dpkg -i /syft.deb
     
   - name: "scan to create sbom"
-    ansible.builtin.shell: syft / --scope all-layers -o json=sbom.json
+    ansible.builtin.shell: syft /bin --scope all-layers -o json=sbom.json
   
   - name: "Copy file"
     fetch: src="sbom.json" dest="/home/kali/Project/sbom/"
