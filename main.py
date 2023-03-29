@@ -25,6 +25,7 @@ def makeAnsible():
         pass
     
     os.system('ansible-playbook /home/kali/Project/ansible/playbook.yml -i /home/kali/Project/ansible/hosts.txt --vault-password-file=/home/kali/Project/ansible/vault.txt')
+    return 'Sbom successfully generated'
 
 @app.get('/Grype')
 def makeGrype():
@@ -36,3 +37,4 @@ def makeGrype():
         pass
 
     os.system(f'grype sbom/server1/sbom.json -o json  --add-cpes-if-none >> grype/server1/{now.day}-{now.month}-{now.year}grype.json')
+    return 'Grype successfully generated'
