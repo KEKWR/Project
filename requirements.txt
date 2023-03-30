@@ -1,0 +1,10 @@
+Python==3.11.2
+fastapi==0.85.0
+uvicorn==0.17.6
+alembic==1.8.1
+asyncpg==0.27.0
+sqlalchemy==1.4.47
+databases==0.7.0
+dotenv==1.0.0
+bs4==4.11.1
+
