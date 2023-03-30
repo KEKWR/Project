@@ -1,9 +1,28 @@
+from datetime import timedelta,datetime
+
 from fastapi import FastAPI
 from script import CheckV_and_Install
 import os
-import datetime
 
-app =FastAPI()
+from os import environ
+
+from models.database import database
+from routers import users
+
+app = FastAPI()
+
+@app.on_event("startup")
+async def startup():
+    # когда приложение запускается устанавливаем соединение с БД
+    await database.connect()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    # когда приложение останавливается разрываем соединение с БД
+    await database.disconnect()
+
+app.include_router(users.router)
 
 @app.get('/syftD')
 def syftUpdateDeb():
@@ -38,3 +57,8 @@ def makeGrype():
 
     os.system(f'grype sbom/server1/sbom.json -o json  --add-cpes-if-none >> grype/server1/{now.day}-{now.month}-{now.year}grype.json')
     return 'Grype successfully generated'
+
+
+
+
+
