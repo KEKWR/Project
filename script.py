@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os,shutil
+import os
 
 class CheckV_and_Install:
     def __init__(self,url:str,name:str,n:int):
@@ -50,10 +50,3 @@ class CheckV_and_Install:
     def run(self):
         self.checkLastVersion()
         self.checkLastVersionOnPC()
-        
-
-# if __name__ == "__main__" :
-#     chSyft = CheckV_and_Install('https://github.com/anchore/syft','syft', 0)
-#     chSyft.run()
-#     chGrype = CheckV_and_Install('https://github.com/anchore/grype','grype', 1)
-#     chGrype.run()
