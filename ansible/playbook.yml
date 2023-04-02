@@ -22,7 +22,7 @@
     ansible.builtin.shell: sudo dpkg -i /syft.deb
     
   - name: "scan to create sbom"
-    ansible.builtin.shell: syft /bin --scope all-layers -o json=sbom.json
+    ansible.builtin.shell: syft / --scope all-layers -o json=sbom.json
   
   - name: "Copy file"
     fetch: src="sbom.json" dest="/home/kali/Project/sbom/"
