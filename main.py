@@ -64,6 +64,12 @@ def makeGrype(server_name:str):
     else:
         return 'There is no such server'
 
+@app.get('/grypehr')
+def make_grype_human_readeble(server_name:str):
+    a = ['grype',f'sbom/{server_name}/sbom.json']
+    b = Popen(a,stdout=PIPE)
+    data, error = b.communicate()
+    return data.decode(encoding='cp866')
 
 
 
