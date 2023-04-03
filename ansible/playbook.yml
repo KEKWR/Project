@@ -1,6 +1,6 @@
 ---
 
-- hosts: "all"
+- hosts: "{{ HOST }}"
   become: true
        
   vars_files:

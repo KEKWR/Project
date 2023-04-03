@@ -12,6 +12,8 @@ from routers import users
 
 from subprocess import Popen, PIPE
 
+now = datetime.now()
+
 app = FastAPI()
 
 @app.on_event("startup")
@@ -38,18 +40,24 @@ def grypeUpdateDeb():
     return chGrype.m
 
 @app.get('/Ansible')
-def makeAnsible():
+def makeAnsible(server:str):
     try:
         os.mkdir(f'sbom/')
     except:
         pass
     
-    os.system('ansible-playbook /home/kali/Project/ansible/playbook.yml -i /home/kali/Project/ansible/hosts.txt --vault-password-file=/home/kali/Project/ansible/vault.txt')
+    os.system(f'ansible-playbook /home/kali/Project/ansible/playbook.yml -i /home/kali/Project/ansible/hosts.txt --vault-password-file=/home/kali/Project/ansible/vault.txt -e "HOST=server1"')
+    
+    try:
+        os.mkdir(f'sbom/{server}/{now.day}-{now.month}-{now.year}/')
+    except:
+        pass
+    
+    os.replace(f'sbom/{server}/sbom.json', f'sbom/{server}/{now.day}-{now.month}-{now.year}/sbom.json')
     return 'Sbom successfully generated'
 
 @app.get('/Grype/{server_name}')
 def makeGrype(server_name:str):
-    now = datetime.now()
     sbom_servers = os.listdir('/home/kali/Project//sbom')
     if server_name in sbom_servers:
         try:
