@@ -1,3 +1,4 @@
+import hashlib
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -50,3 +51,17 @@ class CheckV_and_Install:
     def run(self):
         self.checkLastVersion()
         self.checkLastVersionOnPC()
+
+
+
+class Hash_md5():
+    def get_hash_md5(filename):
+        with open(filename, 'rb') as f:
+            m = hashlib.md5()
+            while True:
+                data = f.read(8192)
+                if not data:
+                    break
+                m.update(data)
+            return m.hexdigest()
+    

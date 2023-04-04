@@ -2,7 +2,7 @@ from datetime import timedelta,datetime
 import json
 
 from fastapi import FastAPI
-from script import CheckV_and_Install
+from script import CheckV_and_Install,Hash_md5
 import os
 
 from os import environ
@@ -67,7 +67,7 @@ def makeGrype(server_name:str):
             os.system(f'cd /home/kali/Project/grype/{server_name} && mkdir {now.day}-{now.month}-{now.year}')
         except:
             pass
-        os.system(f'grype sbom/{server_name}/sbom.json -o json  --add-cpes-if-none >> grype/{server_name}/{now.day}-{now.month}-{now.year}/grype.json')
+        os.system(f'grype sbom/{server_name}/{now.day}-{now.month}-{now.year}/sbom.json -o json  --add-cpes-if-none >> grype/{server_name}/{now.day}-{now.month}-{now.year}/grype.json')
         return 'Grype successfully generated'
     else:
         return 'There is no such server'
@@ -79,5 +79,12 @@ def make_grype_human_readeble(server_name:str):
     data, error = b.communicate()
     return data.decode(encoding='cp866')
 
-
+@app.get('/indetic')
+def check_indentical_sbom(server_name:str,
+                          day1:str,month1:str,year1:str,
+                          day2:str,month2:str,year2:str):
+    if Hash_md5.get_hash_md5(f'sbom/{server_name}/{day1}-{month1}-{year1}/sbom.json') == Hash_md5.get_hash_md5(f'sbom/{server_name}/{day2}-{month2}-{year2}/sbom.json'):
+        return 'Sboms are identical'
+    else:
+        return 'Sboms differ'
 
