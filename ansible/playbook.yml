@@ -4,7 +4,7 @@
   become: true
        
   vars_files:
-    - secret
+    - "{{ SECRET }}"
       
   tasks:
   - name: Add user to remote hosts

@@ -1,6 +1,8 @@
-[server1]
-server1 ansible_host=192.168.56.104 ansible_user=server ansible_ssh_privat_key_file=ssh_key
-
-
-[server1:vars]
-ssh_key=/home/ubuntu/.ssh/id_rsa
+[servers]
+server1 ansible_host=192.168.56.107 ansible_user=server ansible_ssh_privat_key_file=ssh_key
+1 ansible_host=1 ansible_user=1 ansible_ssh_privat_key_file=ssh_key 
+1 ansible_host=1 ansible_user=1 ansible_ssh_privat_key_file=ssh_key 
+1 ansible_host=1 ansible_user=1 ansible_ssh_privat_key_file=ssh_key 
+1 ansible_host=1 ansible_user=1 ansible_ssh_privat_key_file=ssh_key 
+1 ansible_host=1 ansible_user=1 ansible_ssh_privat_key_file=ssh_key 
+1 ansible_host=1 ansible_user=1 ansible_ssh_privat_key_file=ssh_key 

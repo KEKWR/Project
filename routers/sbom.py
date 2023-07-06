@@ -10,20 +10,20 @@ now = datetime.now()
 router = APIRouter()
 
 @router.get('/Ansible')
-def makeAnsible(server:str):
+def makeAnsible(server_name:str):
     try:
         os.mkdir(f'sbom/')
     except:
         pass
     
-    os.system(f'cd ansible && ansible-playbook playbook.yml -i hosts.txt --vault-password-file=vault.txt -e "HOST={server}"')
+    os.system(f'cd ansible && ansible-playbook playbook.yml -i hosts.txt --vault-password-file=vault.txt -e "HOST={server_name},SECRET=secret"')
     
     try:
-        os.mkdir(f'sbom/{server}/{now.day}-{now.month}-{now.year}/')
+        os.mkdir(f'sbom/{server_name}/{now.day}-{now.month}-{now.year}/')
     except:
         pass
     
-    os.replace(f'sbom/{server}/sbom.json', f'sbom/{server}/{now.day}-{now.month}-{now.year}/sbom.json')
+    os.replace(f'sbom/{server_name}/sbom.json', f'sbom/{server_name}/{now.day}-{now.month}-{now.year}/sbom.json')
     return 'Sbom successfully generated'
 
 

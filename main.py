@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from os import environ
 
 from models.database import database
-from routers import sbom, users,debinstall,grype
+from routers import sbom, users,debinstall,grype,servers
 
 
 
@@ -32,3 +32,4 @@ app.include_router(sbom.router)
 
 app.include_router(grype.router)
 
+app.include_router(servers.router)
