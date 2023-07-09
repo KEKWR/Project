@@ -16,7 +16,7 @@ def makeAnsible(server_name:str):
     except:
         pass
     
-    os.system(f'cd ansible && ansible-playbook playbook.yml -i hosts.txt --vault-password-file=vault.txt -e "HOST={server_name},SECRET=secret"')
+    os.system(f'cd ansible && ansible-playbook playbook.yml -i hosts.txt --vault-password-file=vault.txt -e "HOST={server_name},SECRET={server_name}"')
     
     try:
         os.mkdir(f'sbom/{server_name}/{now.day}-{now.month}-{now.year}/')
